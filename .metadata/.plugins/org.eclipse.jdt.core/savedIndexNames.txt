@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+/home/george/Documents/Java/Libraries/.metadata/.plugins/org.eclipse.jdt.core
+4145758927.index
+2687487175.index
