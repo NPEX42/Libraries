@@ -2,7 +2,10 @@ package np.common.core;
 
 import java.net.URL;
 import java.net.URLClassLoader;
-
+/**
+ * @author george
+ */
+@Deprecated
 public class ExternalClassLoader extends URLClassLoader {
 
 	public ExternalClassLoader() {

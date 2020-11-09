@@ -2,15 +2,12 @@ package np.io.core;
 
 import java.io.*;
 import java.net.*;
-
+import np.common.exceptions.*;
+/**
+ * @author george
+ */
 public class IO {
-	public static String ReadStringFromReader(BufferedReader refactor) {
-		try {
-			return refactor.readLine();
-		} catch (IOException ioex) {
-			return null;
-		}
-	}
+	
 	
 	public static String ReadTextFromFile(File file) {
 		if(file.exists()) {
@@ -28,6 +25,14 @@ public class IO {
 			return buffer.toString();
 		} else {
 			return "";
+		}
+	}
+	
+	public static String ReadStringFromReader(BufferedReader refactor) {
+		try {
+			return refactor.readLine();
+		} catch (IOException ioex) {
+			return null;
 		}
 	}
 	
@@ -49,7 +54,8 @@ public class IO {
 			Socket socket = new Socket(hostname, port);
 			return socket;
 		} catch (IOException ioex) {
-			return new Socket(Proxy.NO_PROXY);
+			NetworkException.ThrowSocketCreationException(hostname, port);
+			return null;
 		}
 	}
 	
@@ -63,10 +69,21 @@ public class IO {
 		}
 	}
 
-	public static boolean WriteStringToSocket(Socket socket, String message) {
+	public static boolean WriteStringToSocket(String message, Socket socket) {
 		try {
 			BufferedWriter writer = OpenWriter(socket.getOutputStream());
 			writer.write(message);
+			writer.flush();
+			return true;
+		} catch (IOException ioex) {
+			return false;
+		}
+	}
+	
+	public static boolean WriteNewLineToSocket(Socket socket) {
+		try {
+			BufferedWriter writer = OpenWriter(socket.getOutputStream());
+			writer.write("\r\n");
 			writer.flush();
 			return true;
 		} catch (IOException ioex) {
