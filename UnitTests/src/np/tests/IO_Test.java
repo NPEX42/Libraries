@@ -53,6 +53,11 @@ class IO_Test {
 		IO.GetStdErr().println("StandardErr");
 	}
 	
+	@Test
+	void testGetAppData() {
+		System.out.println(IO.AppData("IO_TESTS"));
+	}
+	
 	
 
 }

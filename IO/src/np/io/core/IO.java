@@ -2,12 +2,18 @@ package np.io.core;
 
 import java.io.*;
 import java.net.*;
+
+import np.common.core.SYS;
+import np.common.core.SYS.OperatingSystemType;
 import np.common.exceptions.*;
 /**
  * @author george
  */
 public class IO {
 	
+	public static int GetFileSizeBytes(String file) {
+		return (int) new File(file).length();
+	}
 	
 	public static String ReadTextFromFile(File file) {
 		if(file.exists()) {
@@ -25,6 +31,18 @@ public class IO {
 			return buffer.toString();
 		} else {
 			return "";
+		}
+	}
+	
+	public static String AppData(String appname) {
+		OperatingSystemType os = SYS.GetOSType();
+		switch(os) {
+		case UNIX: return "~/."+appname;
+		case MACOS: return "~/."+appname;
+		case WINDOWS: return SYS.GetEnvironmentVariable("APPDATA")+File.pathSeparator+"appname";
+		case UNKNOWN:
+		default:
+			return "/"+appname+"/";
 		}
 	}
 	
